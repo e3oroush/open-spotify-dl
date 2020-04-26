@@ -5,7 +5,14 @@ The whole idea I borrowed from [this repo](https://github.com/SathyaBhat/spotify
 We are using youtube-dl package to download youtube videos and ffmpeg to convert them to mp3, make sure to download them correctly.  
 If you got problems with ffmpeg, provide ffmpeg path with `FFMPEG_PATH` environment variable.
 
-## usage
+## Install requirements
+You need to have ffmpeg installed in your system with the flag of limemp3.  
+And install the following requirements:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
 1. Download a playlist or album: Copy the spotify URL
 ```bash
 $ open_spotify_dl --url URL_PATH

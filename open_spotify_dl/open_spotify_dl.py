@@ -1,12 +1,13 @@
-import requests
-import json
-from datetime import datetime
-import youtube_dl
-import os
-import logging
 import re
-from argparse import ArgumentParser
+import os
+import json
+import string
+import logging
+import requests
+import youtube_dl
 from tqdm import tqdm
+from datetime import datetime
+from argparse import ArgumentParser
 
 # TODO Bring some usefull comments
 # TODO download songs with patterns https://open.spotify.com/track/(.*)
@@ -16,6 +17,8 @@ logging.basicConfig(level=logging.INFO,
                     ' %(funcName)s - %(message)s')
 
 log = logging.getLogger('osdl')
+
+remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
 
 def get_token():
   url = "https://open.spotify.com/get_access_token?reason=transport&productType=web_player"
@@ -103,7 +106,9 @@ def search_youtube(track):
   return  {**track, "youtube_video_id": selected_video_id}
 
 def download_youtube(track, root):
-  filename = os.path.join(root, f'{str(track["track_number"]).zfill(2)}-{track["title"]}.mp3')
+  filename = os.path.join(root, 
+  f'{str(track["track_number"]).zfill(2)} {track["title"]} {track["artist_names"][0]}.mp3'\
+    .translate(remove_punctuation_map))
   if os.path.exists(filename):
     return
   url=f"https://www.youtube.com/watch?v={track['youtube_video_id']}"
