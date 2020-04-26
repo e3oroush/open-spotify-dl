@@ -107,8 +107,8 @@ def search_youtube(track):
 
 def download_youtube(track, root):
   filename = os.path.join(root, 
-  f'{str(track["track_number"]).zfill(2)} {track["title"]} {track["artist_names"][0]}.mp3'\
-    .translate(remove_punctuation_map))
+  f'{str(track["track_number"]).zfill(2)} {track["title"]} {track["artist_names"][0]}'\
+    .translate(remove_punctuation_map)) + '.mp3'
   if os.path.exists(filename):
     return
   url=f"https://www.youtube.com/watch?v={track['youtube_video_id']}"
